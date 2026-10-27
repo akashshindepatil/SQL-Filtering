@@ -1,0 +1,180 @@
+CREATE DATABASE hospital_db;
+
+USE hospital_db;
+
+CREATE TABLE hospital_patients (
+    patient_id INT PRIMARY KEY,
+    patient_name VARCHAR(50),
+    age INT,
+    gender VARCHAR(10),
+    department VARCHAR(30),
+    doctor_name VARCHAR(50),
+    admission_date DATE,
+    discharge_date DATE,
+    diagnosis VARCHAR(50),
+    bill_amount DECIMAL(10,2),
+    payment_status VARCHAR(20)
+);
+
+INSERT INTO hospital_patients VALUES
+(1, 'Rahul Sharma', 45, 'Male', 'Cardiology', 'Dr. Amit Patil', '2026-01-05', '2026-01-10', 'Heart Disease', 75000, 'Paid'),
+
+(2, 'Priya Deshmukh', 32, 'Female', 'Orthopedics', 'Dr. Neha Joshi', '2026-01-07', '2026-01-12', 'Fracture', 45000, 'Paid'),
+
+(3, 'Amit Kulkarni', 60, 'Male', 'Neurology', 'Dr. Raj Mehta', '2026-01-08', '2026-01-15', 'Migraine', 85000, 'Pending'),
+
+(4, 'Sneha Patil', 28, 'Female', 'Pediatrics', 'Dr. Kavita Shah', '2026-01-10', '2026-01-13', 'Viral Fever', 18000, 'Paid'),
+
+(5, 'Vikas Jadhav', 52, 'Male', 'Cardiology', 'Dr. Amit Patil', '2026-01-12', '2026-01-18', 'Heart Disease', 95000, 'Pending'),
+
+(6, 'Pooja More', 35, 'Female', 'Gynecology', 'Dr. Anjali Rao', '2026-01-14', '2026-01-17', 'Pregnancy Care', 55000, 'Paid'),
+
+(7, 'Suresh Pawar', 67, 'Male', 'Orthopedics', 'Dr. Neha Joshi', '2026-01-15', '2026-01-22', 'Knee Replacement', 125000, 'Pending'),
+
+(8, 'Anita Singh', 41, 'Female', 'Neurology', 'Dr. Raj Mehta', '2026-01-16', '2026-01-20', 'Migraine', 65000, 'Paid'),
+
+(9, 'Karan Gupta', 19, 'Male', 'General Medicine', 'Dr. Sanjay Rao', '2026-01-18', '2026-01-21', 'Dengue', 32000, 'Paid'),
+
+(10, 'Meena Joshi', 55, 'Female', 'Cardiology', 'Dr. Amit Patil', '2026-01-20', '2026-01-27', 'Heart Disease', 110000, 'Pending'),
+
+(11, 'Rohit Nair', 38, 'Male', 'General Medicine', 'Dr. Sanjay Rao', '2026-01-22', '2026-01-25', 'Diabetes', 25000, 'Paid'),
+
+(12, 'Kavita Desai', 29, 'Female', 'Gynecology', 'Dr. Anjali Rao', '2026-01-23', '2026-01-28', 'Pregnancy Care', 68000, 'Pending'),
+
+(13, 'Manoj Shinde', 72, 'Male', 'Orthopedics', 'Dr. Neha Joshi', '2026-01-25', '2026-02-02', 'Knee Replacement', 150000, 'Paid'),
+
+(14, 'Riya Kapoor', 12, 'Female', 'Pediatrics', 'Dr. Kavita Shah', '2026-01-26', '2026-01-29', 'Viral Fever', 22000, 'Paid'),
+
+(15, 'Ajay Verma', 48, 'Male', 'Neurology', 'Dr. Raj Mehta', '2026-01-28', '2026-02-03', 'Stroke', 135000, 'Pending'),
+
+(16, 'Neha Chavan', 33, 'Female', 'General Medicine', 'Dr. Sanjay Rao', '2026-02-01', '2026-02-05', 'Diabetes', 28000, 'Paid'),
+
+(17, 'Sachin Yadav', 58, 'Male', 'Cardiology', 'Dr. Amit Patil', '2026-02-03', '2026-02-09', 'Heart Disease', 90000, 'Paid'),
+
+(18, 'Swati Pawar', 26, 'Female', 'Gynecology', 'Dr. Anjali Rao', '2026-02-05', '2026-02-10', 'Pregnancy Care', 72000, 'Pending'),
+
+(19, 'Deepak Mishra', 64, 'Male', 'Orthopedics', 'Dr. Neha Joshi', '2026-02-07', '2026-02-14', 'Fracture', 80000, 'Paid'),
+
+(20, 'Asha Kumari', 44, 'Female', 'General Medicine', 'Dr. Sanjay Rao', '2026-02-10', '2026-02-14', 'Dengue', 35000, 'Pending');
+
+select * from hospital_patients;
+-- 1]
+select count(patient_name) as Total_Patients
+from hospital_patients;
+-- 2]
+select sum(bill_amount) as Total_Bill
+from hospital_patients;
+-- 3]
+select avg(bill_amount) as avg_bill
+from hospital_patients;
+-- 4]
+select max(bill_amount) as max_bill
+from hospital_patients;
+-- 5]
+select gender,
+count(gender)
+from hospital_patients
+where gender='male';
+-- 6]
+select gender,
+count(gender)
+from hospital_patients
+where gender='female';
+-- 7]Find the total bill amount for male patients.
+SELECT gender,
+sum(bill_amount) as male_bill
+from hospital_patients
+where gender='male';
+-- 8]Find the average age of all patients.
+SELECT avg(age) from hospital_patients;
+-- 
+SELECT max(age) from  hospital_patients;
+--
+SELECT min(age) from  hospital_patients;
+
+-- 9]Count patients in each department.
+SELECT department,
+count(patient_name)
+from hospital_patients
+group by department;
+-- 10]Find the total bill amount for each department.
+SELECT department,
+sum(bill_amount)
+from hospital_patients
+group by department;
+-- 11]Find the average bill amount for each department.
+SELECT department,
+avg(bill_amount)
+from hospital_patients
+group by department;
+-- 12]Find the maximum bill amount in each department.
+SELECT department,
+min(bill_amount) -- min max both
+from hospital_patients
+group by department;
+-- 13]Count patients for each gender.
+SELECT gender,
+count(patient_name)
+from hospital_patients
+group by gender;
+-- 14]Display the average bill amount for each gender.
+SELECT gender,
+avg(bill_amount)
+from hospital_patients
+group by gender;
+-- 15]Find the total bill amount for each gender.
+SELECT gender,
+sum(bill_amount)
+from hospital_patients
+group by gender;
+-- 16]Count patients for each diagnosis.
+SELECT diagnosis,
+count(patient_name)
+from hospital_patients
+group by diagnosis;
+-- 17]Find the average bill amount for each diagnosis.
+SELECT diagnosis,
+avg(bill_amount)
+from hospital_patients
+group by diagnosis;
+-- 18]Find the total bill amount for each diagnosis.
+SELECT diagnosis,
+sum(bill_amount)
+from hospital_patients
+group by diagnosis;
+-- 19]Find the highest bill for each diagnosis.
+SELECT diagnosis,
+max(bill_amount)
+from hospital_patients
+group by diagnosis;
+-- 20]Count patients for each payment status.
+SELECT 
+    payment_status, COUNT(patient_name)
+FROM
+    hospital_patients
+GROUP BY payment_status;
+-- 21]Find the total bill amount for each payment status.
+SELECT payment_status,
+sum(bill_amount)
+from hospital_patients
+group by payment_status;
+-- 22]Count patients treated by each doctor.
+SELECT doctor_name,
+count(patient_name)
+from hospital_patients
+group by doctor_name;
+-- 23]Find the total bill amount generated by each doctor.
+SELECT doctor_name,
+sum(bill_amount)
+from hospital_patients
+group by doctor_name;
+-- 24]Find the highest bill handled by each doctor.
+SELECT doctor_name,
+max(bill_amount)
+from hospital_patients
+group by doctor_name;
+-- 25]Find the minimum and maximum age in each department.
+SELECT department,
+min(age),max(age)
+from hospital_patients
+group by department;
